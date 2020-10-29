@@ -1,0 +1,57 @@
+<div fxLayoutAlign="center center" fxFlexFill class="main-div" class="back" fxLayout="column">
+    <img src="../../../assets/img/logoGreen.png"  alt="logo green e commerce" width="150" height="150">
+    <!-- CARD -->
+    <mat-card fxFlex="35" class="card">
+        
+      <mat-toolbar color="primary" fxLayoutAlign="center center">Login</mat-toolbar>
+      <form #userPost="ngForm" (ngSubmit)="onSubmitLogin      (userPost.value)" fxLayoutAlign="stretch" fxLayout="column" class="login-form">
+        <mat-form-field>
+          <input matInput name="usuario" placeholder="Usuario" ngModel/>
+        </mat-form-field>
+  
+        <mat-form-field>
+          <input matInput name="senha" type="password" placeholder="Senha" ngModel />
+        </mat-form-field>
+
+        <button mat-raised-button type="submit" class="btnlogin" >Login</button>
+        <button mat-raised-button type="button" class="btnlogin" (click)="open(content)">Cadastre-se</button>
+        <a href="/home">Home</a>
+      </form>
+    </mat-card>
+      <!-- /CARD -->
+  </div>
+
+
+  <!-- MODAL -->
+<ng-template #content let-modal>
+
+  <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Insira seus dados</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+
+  <div class="modal-body">
+      <form #userPost="ngForm" (ngSubmit)="onSubmitCadastro(userPost.value);  modal.close('Save click')"  fxLayoutAlign="stretch" fxLayout="column" class="login-form">
+
+                  <mat-form-field>
+                      <input matInput name="name" placeholder="Nome Completo" type="text" ngModel> 
+                  </mat-form-field>
+                  <mat-form-field >
+                      <input matInput name="email" placeholder="Email" type="email" ngModel>  
+                  </mat-form-field>
+                  <mat-form-field>
+                      <input matInput name="password" placeholder="Senha" type="password" ngModel>
+                  </mat-form-field>
+                  <mat-form-field>
+                      <input matInput name="confpassword" placeholder="Confirme sua senha" type="password" ngModel>
+                  </mat-form-field>
+
+          <button type="submit" class="btn btn-outline-dark">Cadastrar</button>
+      </form>
+  </div>
+
+
+</ng-template>
+<!-- /MODAL -->
