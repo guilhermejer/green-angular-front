@@ -15,7 +15,7 @@ Instale o Angular CLI.
     - npm install
 
 ## Obtendo o Angular CLI
-Após ter instalado o node, abra um terminal e rode o seguknte comando:
+Após ter instalado o node, abra um terminal e rode o seguinte comando:
 
     - npm install –g @angular/cli
 
