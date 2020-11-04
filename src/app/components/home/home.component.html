@@ -2,8 +2,7 @@
 <!-- SECTION -->
 <div class="section">
     <!-- container -->
-    <div class="container">
-    </div>
+    <div class="container"></div>
     <!-- /container -->
 </div>
 <!-- /SECTION -->
@@ -12,7 +11,6 @@
 
 <!-- MODAL -->
 <ng-template #content let-modal>
-
     <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">Adicionar produto</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -21,37 +19,47 @@
     </div>
 
     <div class="modal-body">
-        <form #userPost="ngForm" (ngSubmit)="addProduto(userPost.value);  modal.close('Save click')"  fxLayoutAlign="stretch" fxLayout="column" class="login-form">
-
-                    <mat-form-field>
-                        <input matInput name="pname" placeholder="Nome do Produto" type="text" ngModel> 
-                    </mat-form-field>
-                    <mat-form-field >
-                        <input matInput name="pdesc" placeholder="Descrição" type="text" ngModel>  
-                    </mat-form-field>
-                    <mat-form-field>
-                        <input matInput name="pprice" placeholder="Preço" type="number" ngModel>
-                </mat-form-field>
+        <form #userPost="ngForm" (ngSubmit)="addProduto(userPost.value); modal.close('Save click')"
+            fxLayoutAlign="stretch" fxLayout="column" class="login-form">
+            <mat-form-field>
+                <input matInput name="titulo" placeholder="Nome do Produto" type="text" ngModel />
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput name="slug" placeholder="Descrição curta" type="text" ngModel />
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput name="descricao" placeholder="Descrição" type="text" ngModel />
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput name="preco" placeholder="Preço" type="number" ngModel />
+            </mat-form-field>
+            <mat-form-field>
+                <select matNativeControl name="tags" placeholder="Categoria" ngModel>
+                    <option value="Tecnologia">Tecnologia</option>
+                    <option value="Esporte e Lazer">Esporte e Lazer</option>
+                    <option value="Supermercado">Supermercado</option>
+                </select>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput name="image" placeholder="Image URL" type="text" ngModel />
+            </mat-form-field>
 
             <button type="submit" class="btn btn-outline-dark">Salvar</button>
         </form>
     </div>
-
-
 </ng-template>
-
 
 <div class="section">
     <div fxLayoutAlign="center center">
-        <button mat-raised-button type="button" class="btnaddproduto" (click)="open(content)">+ Adicionar
-            produto</button>
+        <button mat-raised-button type="button" class="btnaddproduto" (click)="open(content)">
+            + Adicionar produto
+        </button>
     </div>
     <!-- /MODAL -->
     <!-- container -->
     <div class="container">
         <!-- row -->
         <div class="row">
-
             <!-- section title -->
             <div class="col-md-12">
                 <div class="section-title">
@@ -67,28 +75,26 @@
                         <div class="card-header">
                             <div class="card-title">
                                 <b>
-                                    <p>{{ Produto.name}}</p>
+                                    <p>{{ Produto.titulo }}</p>
                                 </b>
                             </div>
-                            <button mat-raised-button type="button" class="btndeleteproduto" (click)="dellProduto(Produto.id)">Excluir</button>
+                            <button mat-raised-button type="button" class="btndeleteproduto"
+                                (click)="dellProduto(Produto._id)">
+                                Excluir
+                            </button>
                         </div>
                         <div class="card-body">
-                            <h5>{{ Produto.description.substr(0, 40)}}</h5>
-                            <p class="lead">{{ Produto.price | currency:'BRL'}}</p>
+                            <h5>{{ Produto.descricao.substr(0, 40) }}</h5>
+                            <p class="lead">{{ Produto.preco | currency: "BRL" }}</p>
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
         </div>
     </div>
-
 </div>
 <!-- /container -->
 
 <!-- /SECTION -->
-
 
 <app-footer></app-footer>

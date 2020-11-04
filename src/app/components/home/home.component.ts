@@ -13,17 +13,6 @@ export class HomeComponent implements OnInit {
   produtos: Produto[] = []
 
   constructor(private modalService: NgbModal,private  http:HttpClient) { 
-    /*
-    const celular = new Produto(
-      'Iphone',
-      'Celular da marca Apple',
-      2000
-    );
-
-    for (let i = 0; i < 10; i++) {
-      this.produtos.push(celular);
-    }
-    */
   }
 
   open(content) {
@@ -46,28 +35,38 @@ export class HomeComponent implements OnInit {
   }
 
   addProduto(data){
-    //   this.http.post('https://bd00f777-5247-4ede-8412-df3111db561e.mock.pstmn.io/post_test',data)
-    //   .subscribe((result)=>{
-    //     console.log("Resultado:", result)
-    //   })
+    try{
+      this.http.post('http://localhost:3000/produto/',data)
+       .subscribe((result)=>{
+         console.log("Resultado:", result)
+       })
        console.log(data);
+      }catch(e){
+        console.log(e);
+        alert('Ocorreu um erro ao adicionar o produto!');
+      }
+       this.getProdutos();
   };
 
   getProdutos(){
-    this.http.get<Produto[]>('https://f507a26a-0bf4-46f2-a15e-b95adb5d1f1e.mock.pstmn.io/produtos')
+    try {
+    this.http.get<Produto[]>('http://localhost:3000/produto/')
     .subscribe(
       response => {
-      console.log(response);
       this.produtos = response;
-      console.log(this.produtos);
+      })
+      }catch(e){
+        console.log(e);
+        alert('Ocorreu um erro ao buscar os produtos!');
+      }
     }
-    )
-  }
+    
+  
 
   dellProduto(prodid){
     try {
     console.log(prodid);
-    this.http.post('https://f507a26a-0bf4-46f2-a15e-b95adb5d1f1e.mock.pstmn.io/post_mock',prodid)
+    this.http.delete('http://localhost:3000/produto/',prodid)
     .subscribe(
       response => {
         console.log(response);
@@ -78,7 +77,7 @@ export class HomeComponent implements OnInit {
       console.log(e);
       alert('Ocorreu um erro ao deletar o produto!');
     }
-  }
+  };
 
   ngOnInit(): void {
     this.getProdutos();

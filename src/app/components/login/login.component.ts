@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
 import {HttpClient} from '@angular/common/http'
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap'
+import {Router} from '@angular/router'
 
 
 @Component({
@@ -12,7 +13,8 @@ export class LoginComponent implements OnInit {
   closeResult = '';
 
 
-  constructor(private modalService: NgbModal, private http:HttpClient) { }
+
+  constructor(private modalService: NgbModal, private http:HttpClient, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -37,21 +39,45 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmitLogin(data){
- //   this.http.post('https://bd00f777-5247-4ede-8412-df3111db561e.mock.pstmn.io/post_test',data)
- //   .subscribe((result)=>{
- //     console.log("Resultado:", result)
- //   })
-    console.log(data);
+    try {
 
+     this.http.post('http://localhost:3000/login/logar',data)
+    .subscribe((result)=>{
+      if (result != null && result.ativo){
+        this.router.navigate(['/home'])
+      } else{ alert('Usuario não cadastrado ou senha incorreta (em caso de erros utilizar 123, 123)')}
+    })
+  } catch(e){
+    console.log(e);
+    alert('Ocorreu um erro ao ao logar!');
+  }
+ 
   }
 
   
   onSubmitCadastro(data){
-    //   this.http.post('https://bd00f777-5247-4ede-8412-df3111db561e.mock.pstmn.io/post_test',data)
-    //   .subscribe((result)=>{
-    //     console.log("Resultado:", result)
-    //   })
-       console.log(data);
+    try {
+      var datacadastro = {
+        "pessoa":{"nome":data.nome,
+         "sobrenome":data.sobrenome,
+         "endereco":data.endereco,
+         "hashId":data.hashId,
+         "sexo":data.sexo
+        },
+         "login":{"username":data.username,
+          "password":data.password}}
+
+
+      this.http.post('http://localhost:3000/pessoa/createPessoa',datacadastro)
+      .subscribe((result)=>{
+        console.log("Resultado:", result)
+       
+      })
+
+    } catch(e){
+      console.log(e);
+      alert('Ocorreu um erro ao ao cadastrar!');
+    }
   };
 
 }
